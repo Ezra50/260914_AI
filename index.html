@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ezra | AI Engineer & Developer Portal</title>
+  <meta name="description" content="Personal portal & dashboard of Ezra - AI Engineer, Researcher, and Developer. Featuring live precision clock, world timezones, tech stack, and portfolio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="cosmos">
+  <!-- Background Canvas for ambient dynamic particles -->
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="app-container">
+    <!-- Header Navigation -->
+    <header class="navbar">
+      <div class="logo">
+        <span class="logo-symbol">⚡</span>
+        <span class="logo-text">EZRA<span class="highlight">.AI</span></span>
+      </div>
+      <div class="nav-actions">
+        <div class="theme-selector-wrapper">
+          <label for="theme-select" class="sr-only">Theme</label>
+          <select id="theme-select" aria-label="Select Theme">
+            <option value="cosmos">🌌 Deep Cosmos</option>
+            <option value="cyberpunk">🔮 Cyberpunk Neon</option>
+            <option value="aurora">✨ Aurora Borealis</option>
+            <option value="matrix">📟 Emerald Matrix</option>
+            <option value="glass">💎 Frosted Glass</option>
+          </select>
+        </div>
+        <button id="sound-toggle-btn" class="icon-btn" title="Toggle Ambient Audio Chime" aria-label="Toggle Sound">
+          <span class="sound-icon">🔇</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Grid Dashboard -->
+    <main class="dashboard-grid">
+      
+      <!-- HERO CARD: PROFILE & GREETING -->
+      <section class="card profile-card" id="profile-section">
+        <div class="profile-header">
+          <div class="avatar-container">
+            <div class="avatar-glow"></div>
+            <div class="avatar-inner">
+              <span class="avatar-char">E</span>
+            </div>
+            <div class="status-indicator" title="Status: Online & Building AI Models">
+              <span class="pulse-dot"></span>
+            </div>
+          </div>
+          <div class="profile-info">
+            <div class="badge-row">
+              <span class="badge status-badge">🟢 Online & Building</span>
+              <span class="badge role-badge">AI Researcher</span>
+            </div>
+            <h1 class="profile-name">Ezra <span class="profile-handle">(@Ezra50)</span></h1>
+            <p class="profile-tagline">AI Engineer & Creative Technologist crafting intelligent systems and next-gen applications.</p>
+          </div>
+        </div>
+
+        <div class="quick-stats">
+          <div class="stat-item">
+            <span class="stat-num" id="uptime-counter">0d 0h</span>
+            <span class="stat-label">Session Time</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">2026</span>
+            <span class="stat-label">Next-Gen Era</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">AI / ML</span>
+            <span class="stat-label">Core Domain</span>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="https://github.com/Ezra50" target="_blank" rel="noopener" class="social-btn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://github.com/Ezra50/260914_AI" target="_blank" rel="noopener" class="social-btn highlight-btn">
+            <span class="icon">📦</span>
+            260914_AI Repo
+          </a>
+        </div>
+      </section>
+
+      <!-- LIVE CURRENT TIME & MASTER CLOCK -->
+      <section class="card time-master-card" id="clock-section">
+        <div class="card-header">
+          <div class="greeting-box">
+            <span id="greeting-icon" class="greeting-icon">✨</span>
+            <span id="greeting-text" class="greeting-text">Good day!</span>
+          </div>
+          <div class="time-controls">
+            <button id="format-toggle" class="chip-btn" title="Toggle 12/24 Hour format">24H</button>
+            <button id="copy-time-btn" class="chip-btn" title="Copy ISO Timestamp">📋 Copy ISO</button>
+          </div>
+        </div>
+
+        <!-- Main Display Clock -->
+        <div class="clock-display-wrapper">
+          <div class="clock-face">
+            <div class="time-main">
+              <span id="clock-hours">00</span><span class="blink-colon">:</span><span id="clock-minutes">00</span><span class="blink-colon">:</span><span id="clock-seconds">00</span>
+              <span id="clock-period" class="time-period"></span>
+            </div>
+            <div class="millis-bar-wrapper">
+              <div id="millis-progress" class="millis-bar"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date & Calendar Info -->
+        <div class="date-details">
+          <div class="date-primary" id="date-display">Monday, September 14, 2026</div>
+          <div class="date-badges">
+            <span class="meta-tag" id="timezone-display">Timezone: Asia/Taipei</span>
+            <span class="meta-tag" id="day-of-year">Day 257 of 365</span>
+            <span class="meta-tag" id="week-number">Week 38</span>
+            <span class="meta-tag" id="unix-timestamp">Epoch: 1789476000</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORLD CLOCK & TIMEZONES -->
+      <section class="card world-clock-card" id="world-clock-section">
+        <div class="card-title-bar">
+          <h2 class="card-title">🌐 Global AI Hubs</h2>
+          <span class="live-tag"><span class="pulse-dot red"></span> LIVE SYNC</span>
+        </div>
+        <div class="world-clock-grid">
+          <div class="world-clock-item" data-tz="Asia/Taipei">
+            <div class="city-info">
+              <span class="flag">🇹🇼</span>
+              <div>
+                <div class="city-name">Taipei</div>
+                <div class="city-tz">GMT+8 (Local)</div>
+              </div>
+            </div>
+            <div class="city-time" id="time-taipei">--:--:--</div>
+          </div>
+
+          <div class="world-clock-item" data-tz="Asia/Tokyo">
+            <div class="city-info">
+              <span class="flag">🇯🇵</span>
+              <div>
+                <div class="city-name">Tokyo</div>
+                <div class="city-tz">GMT+9</div>
+              </div>
+            </div>
+            <div class="city-time" id="time-tokyo">--:--:--</div>
+          </div>
+
+          <div class="world-clock-item" data-tz="America/Los_Angeles">
+            <div class="city-info">
+              <span class="flag">🇺🇸</span>
+              <div>
+                <div class="city-name">Silicon Valley</div>
+                <div class="city-tz">PST / PDT</div>
+              </div>
+            </div>
+            <div class="city-time" id="time-sf">--:--:--</div>
+          </div>
+
+          <div class="world-clock-item" data-tz="America/New_York">
+            <div class="city-info">
+              <span class="flag">🇺🇸</span>
+              <div>
+                <div class="city-name">New York</div>
+                <div class="city-tz">EST / EDT</div>
+              </div>
+            </div>
+            <div class="city-time" id="time-ny">--:--:--</div>
+          </div>
+
+          <div class="world-clock-item" data-tz="Europe/London">
+            <div class="city-info">
+              <span class="flag">🇬🇧</span>
+              <div>
+                <div class="city-name">London</div>
+                <div class="city-tz">GMT / BST</div>
+              </div>
+            </div>
+            <div class="city-time" id="time-london">--:--:--</div>
+          </div>
+
+          <div class="world-clock-item" data-tz="UTC">
+            <div class="city-info">
+              <span class="flag">🌐</span>
+              <div>
+                <div class="city-name">UTC Standard</div>
+                <div class="city-tz">Universal Time</div>
+              </div>
+            </div>
+            <div class="city-time" id="time-utc">--:--:--</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRODUCTIVITY: FOCUS TIMER & STOPWATCH -->
+      <section class="card timer-card" id="productivity-section">
+        <div class="card-title-bar">
+          <h2 class="card-title">⏱️ Productivity & Focus Mode</h2>
+          <div class="tab-switch">
+            <button class="tab-btn active" id="tab-pomodoro">Focus</button>
+            <button class="tab-btn" id="tab-stopwatch">Stopwatch</button>
+          </div>
+        </div>
+
+        <div id="pomodoro-view" class="timer-view">
+          <div class="timer-display" id="pomodoro-display">25:00</div>
+          <div class="timer-controls">
+            <button id="pomo-start" class="btn btn-primary">Start Focus</button>
+            <button id="pomo-reset" class="btn btn-secondary">Reset</button>
+            <div class="preset-buttons">
+              <button class="chip-btn" data-time="15">15m</button>
+              <button class="chip-btn active" data-time="25">25m</button>
+              <button class="chip-btn" data-time="50">50m</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="stopwatch-view" class="timer-view hidden">
+          <div class="timer-display" id="stopwatch-display">00:00.00</div>
+          <div class="timer-controls">
+            <button id="sw-start" class="btn btn-primary">Start</button>
+            <button id="sw-lap" class="btn btn-secondary" disabled>Lap</button>
+            <button id="sw-reset" class="btn btn-secondary">Reset</button>
+          </div>
+          <div id="sw-laps" class="sw-laps-list"></div>
+        </div>
+      </section>
+
+      <!-- SKILLS & EXPERTISE -->
+      <section class="card skills-card" id="skills-section">
+        <div class="card-title-bar">
+          <h2 class="card-title">🧠 Technical Arsenal</h2>
+          <span class="section-subtitle">Core AI & Engineering Stack</span>
+        </div>
+        
+        <div class="skills-category">
+          <h3 class="skill-cat-title">Artificial Intelligence & ML</h3>
+          <div class="tag-cloud">
+            <span class="tech-tag" data-level="95%">PyTorch</span>
+            <span class="tech-tag" data-level="90%">Transformers</span>
+            <span class="tech-tag" data-level="92%">LLM Fine-tuning</span>
+            <span class="tech-tag" data-level="88%">Diffusion Models</span>
+            <span class="tech-tag" data-level="85%">RAG Systems</span>
+            <span class="tech-tag" data-level="89%">Reinforcement Learning</span>
+          </div>
+        </div>
+
+        <div class="skills-category">
+          <h3 class="skill-cat-title">Software Engineering & Tools</h3>
+          <div class="tag-cloud">
+            <span class="tech-tag" data-level="95%">Python</span>
+            <span class="tech-tag" data-level="90%">TypeScript / JS</span>
+            <span class="tech-tag" data-level="85%">Docker & Linux</span>
+            <span class="tech-tag" data-level="88%">Git & CI/CD</span>
+            <span class="tech-tag" data-level="84%">FastAPI</span>
+            <span class="tech-tag" data-level="86%">Next.js / React</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACTIVE PROJECTS & REPOSITORY SHOWCASE -->
+      <section class="card projects-card" id="projects-section">
+        <div class="card-title-bar">
+          <h2 class="card-title">🚀 Featured Projects</h2>
+          <span class="section-subtitle">Active Research & Repos</span>
+        </div>
+
+        <div class="project-list">
+          <div class="project-item">
+            <div class="project-header">
+              <span class="project-name">260914_AI</span>
+              <span class="project-status active">Active Repo</span>
+            </div>
+            <p class="project-desc">Next-generation artificial intelligence experiments, real-time computational models, and dashboard infrastructure.</p>
+            <div class="project-footer">
+              <div class="project-tags">
+                <span class="mini-tag">AI</span>
+                <span class="mini-tag">JavaScript</span>
+                <span class="mini-tag">Dashboard</span>
+              </div>
+              <a href="https://github.com/Ezra50/260914_AI" target="_blank" rel="noopener" class="project-link">View Repo ↗</a>
+            </div>
+          </div>
+
+          <div class="project-item">
+            <div class="project-header">
+              <span class="project-name">Neural Autonomous Agent</span>
+              <span class="project-status in-progress">In Progress</span>
+            </div>
+            <p class="project-desc">Autonomous multi-agent orchestration framework utilizing tool-use and continuous self-reflection.</p>
+            <div class="project-footer">
+              <div class="project-tags">
+                <span class="mini-tag">Agents</span>
+                <span class="mini-tag">Python</span>
+                <span class="mini-tag">LLMs</span>
+              </div>
+              <span class="project-link disabled">Private Lab</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="portal-footer">
+      <p>© 2026 Ezra (@Ezra50) • Built with Modern Web Standards & Zero Bloat</p>
+      <div class="footer-time-sync">
+        <span>Continuous Synchronization Active</span>
+      </div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
