@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Personal Page</title>
+    <style>
+      :root {
+        --bg-1: #0f172a;
+        --bg-2: #1e293b;
+        --card: rgba(15, 23, 42, 0.7);
+        --text: #e2e8f0;
+        --muted: #cbd5e1;
+        --accent: #7dd3fc;
+        --accent-2: #a78bfa;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+        color: var(--text);
+      }
+
+      .card {
+        width: min(90vw, 700px);
+        padding: 40px 30px;
+        border-radius: 24px;
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 60px rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(8px);
+        text-align: center;
+      }
+
+      .eyebrow {
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 14px;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        margin: 0 0 10px;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 1.1rem;
+        margin-bottom: 28px;
+      }
+
+      .clock-box {
+        display: inline-block;
+        padding: 18px 26px;
+        border-radius: 18px;
+        background: rgba(125, 211, 252, 0.1);
+        border: 1px solid rgba(125, 211, 252, 0.25);
+      }
+
+      #time {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--accent);
+      }
+
+      #date {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .footer {
+        margin-top: 26px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="eyebrow">Personal page</div>
+      <h1>Hi, I'm Ezra</h1>
+      <p class="subtitle">Welcome to my corner of the web.</p>
+
+      <div class="clock-box">
+        <div id="time">--:--:--</div>
+        <div id="date">Loading date...</div>
+      </div>
+
+      <div class="footer">Live clock powered by your browser.</div>
+    </main>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const time = now.toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+        const date = now.toLocaleDateString([], {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
+        document.getElementById('time').textContent = time;
+        document.getElementById('date').textContent = date;
+      }
+
+      updateClock();
+      setInterval(updateClock, 1000);
+    </script>
+  </body>
+</html>
