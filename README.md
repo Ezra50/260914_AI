@@ -11,15 +11,6 @@ This repository contains artificial intelligence experiments, models, and projec
 - Python 3.10+ / Node.js (depending on project stack)
 - Git
 
-### Setup
-```bash
-# Clone the repository
-git clone https://github.com/Ezra50/260914_AI.git
-
-# Navigate to the project directory
-cd 260914_AI
-```
-
 ## 📂 Project Structure
 ```text
 .
